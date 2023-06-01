@@ -1,3 +1,5 @@
+/* General styling */
+
 * {
     margin: 0;
     font-family: 'Fredoka', sans-serif;
@@ -5,9 +7,18 @@
 
 body {
     background-color: #1A2B33;
+    position: relative;
 }
 
-/* player selector menu */
+.blue {
+    color: #31C3BD;
+}
+
+.yellow {
+    color: #F2B137;
+}
+
+/* Player selector menu */
 
 .player-selector-container {
     text-align: center;
@@ -17,14 +28,6 @@ body {
 
 .player-selector-container h1 {
     font-size: 45px;
-}
-
-.blue {
-    color: #31C3BD;
-}
-
-.yellow {
-    color: #F2B137;
 }
 
 .selection-div {
@@ -89,4 +92,217 @@ body {
     cursor: pointer;
 }
 
+.start-game-btn:hover {
+    background-color: #ffbf48;
+    transform:translateY(-5px);
+    transition: 0.3s;
+}
 
+/* Game screen header */
+
+.header-elements {
+    display: flex;
+    justify-content: space-between;
+    width: 1100px;
+    margin: 3rem auto 6rem;
+}
+
+.header-elements h2 {
+    color: #A9BEC8;
+    background-color: #1E3640;
+    line-height: 1.5;
+    font-size: 27px;
+    font-weight: 500;
+    padding: 0.25rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+}
+
+.header-elements h2 span {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.header-elements button {
+    height: 50px;
+    width: 50px;
+    border: none;
+    background-color: #A9BEC8;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.header-elements button:hover {
+    scale: 1.1;
+    background-color: #bdd4df;
+    transition: 0.3s;
+}
+
+.header-elements button svg {
+    height: 50px;
+    scale: 2;
+    text-align: center;
+    color: #1E3640;
+}
+
+/* Game grid */
+
+.game-grid {
+    width: 475px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    margin-bottom: 3rem;
+}
+
+.box {
+    height: 130px;
+    background-color: #1E3640;
+    border: 2px solid #485153;
+    border-radius: 0.4rem;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+    font-size: 180px;
+    text-align: center;
+    line-height: 0.5;
+    font-weight: 500;
+    color: #31C3BD;
+    cursor: pointer;
+}
+
+.box:hover{
+    transform: translateY(-5px);
+    background-color: #223c47;
+    transition: 0.3s;
+}
+
+/* Players Scores */
+
+.player-scores {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    color: #1A2B33;
+}
+
+.player-scores p {
+    font-size: 18px;
+}
+
+.player-scores h3 {
+    font-size: 30px;
+}
+
+.player-x-score,
+.player-o-score,
+.ties-score {
+    width: 27%;
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+}
+
+.player-x-score {
+    background-color: #31C3BD;
+}
+
+.player-o-score {
+    background-color: #F2B137;
+}
+
+.ties-score {
+    background-color: #A9BEC8;
+}
+
+/* game end screen */ 
+
+.darken-screen {
+    top: 0;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.411);
+    z-index: 1;
+}
+
+.end-screen {
+    position: fixed;
+    z-index: 2;
+    background-color: #1E3640;
+    top: 32%;
+    width: 100%;
+    text-align: center;
+}
+
+.end-screen-container {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.end-screen-container p {
+    margin-bottom: 1rem;
+    font-size: 25px;
+    color: #A9BEC8;
+}
+
+.winner {
+    margin: 0 auto 1.75rem;;
+    display: flex;
+    align-items: center;
+}
+
+.winner h3 {
+    font-size: 40px;
+    font-weight: 500;
+    color: #31C3BD;
+}
+
+.winner h4 {
+    font-weight: 700;
+    font-size: 60px;
+    margin-right: 10px;
+    color: #31C3BD;
+}
+
+.end-screen-buttons {
+    width: 600px;
+    margin: auto;
+}
+
+.next-round-button,
+.quit-button {
+    color: #1A2B33;
+    border: none;
+    padding: 0.75rem 4rem;
+    margin: 0 1rem 1rem;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.next-round-button {
+    background-color: #F2B137;
+}
+
+.quit-button {
+    background-color: #A9BEC8;
+}
+
+.next-round-button:hover {
+    background-color: #ffbf48;
+    transform:translateY(-5px);
+    transition: 0.3s;
+}
+
+.quit-button:hover {
+    background-color: #c4dce7;
+    transform:translateY(-5px);
+    transition: 0.3s;
+}
