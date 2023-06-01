@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    font-family: 'Fredoka', sans-serif;
+}
+
+body {
+    background-color: #1A2B33;
+}
+
+/* player selector menu */
+
+.player-selector-container {
+    text-align: center;
+    width: 700px;
+    margin: 12rem auto;
+}
+
+.player-selector-container h1 {
+    font-size: 45px;
+}
+
+.blue {
+    color: #31C3BD;
+}
+
+.yellow {
+    color: #F2B137;
+}
+
+.selection-div {
+    background-color: #1E3640;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 2rem 0 3rem;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.5);
+}
+
+.selection-div h1 {
+    color: #A9BEC8;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.selection-div p {
+    color: #78868C;
+}
+
+.selection-buttons {
+    display: flex;
+    margin: 1rem 3rem;
+    background-color: #1A2B33;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.selection-buttons button {
+    border: none;
+    font-size: 100px;
+    font-weight: 700;
+    width: 50%;
+    border-radius: 1rem;
+    height: 90px;
+    line-height: 0;
+    cursor: pointer;
+}
+
+.x-button {
+    background-color: #A9BEC8;
+    color:#1E3640;
+}
+
+.o-button {
+    background-color: transparent;
+    color: #A9BEC8;
+}
+
+.start-game-btn {
+    background-color: #F2B137;
+    color: #1A2B33;
+    border: none;
+    width: 50%;
+    padding: 0.75rem 0;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+
