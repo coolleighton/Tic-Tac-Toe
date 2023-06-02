@@ -1,5 +1,6 @@
 let positions = ["", "", "", "", "", "", "", "", ""]
-
+let player1 = ""
+let player2 = ""
 // Selectors //
 
 const selectOBtn = document.querySelector("#o-button")
@@ -11,6 +12,7 @@ const darkenScreen = document.querySelector("#darken-screen")
 const selectionScreen = document.querySelector("#player-selector-container")
 const gameScreen = document.querySelector("#game-screen")
 const turnDisplay = document.querySelector("#turn")
+const winnerSign = document.querySelector("#winner-sign")
 const gameBoxes = document.querySelectorAll(".box")
 
 // Event listeners //
@@ -20,6 +22,8 @@ selectOBtn.addEventListener("click", () => {
     selectOBtn.style.backgroundColor = "#A9BEC8"
     selectXBtn.style.color = "#A9BEC8"
     selectXBtn.style.backgroundColor = "transparent"
+    player1 = "x"
+    player2 = "o"
 })
 
 selectXBtn.addEventListener("click", () => {
@@ -27,6 +31,8 @@ selectXBtn.addEventListener("click", () => {
     selectXBtn.style.backgroundColor = "#A9BEC8"
     selectOBtn.style.color = "#A9BEC8"
     selectOBtn.style.backgroundColor = "transparent"
+    player1 = "o"
+    player2 = "x"
 })
 
 startGameBtn.addEventListener("click", () => {
@@ -42,11 +48,10 @@ for (var i = 0; i < gameBoxes.length; i++) {
         if (positions[e.target.dataset.id] === "") {
             game.switchPlayer(e)
             game.renderPositions()
-            game.checkForWin()
+            game.checkForRoundWin()
         }
     })
 }
-
 
 // Gameboard factory functions //
 
@@ -54,6 +59,7 @@ const gameBoard = (pos) => {
 
     let gameBoardPositions = pos
     let sign = "x"
+    let winner = ""
 
     const renderPositions = () => {
 
@@ -75,7 +81,21 @@ const gameBoard = (pos) => {
         }
     }
 
-    const checkForWin = () => {
+    const checkForRoundWin = () => {
+
+        const displayWinScreen = () => {
+            darkenScreen.style.display = "block"
+            endScreen.style.display = "block"
+            winnerSign.textContent = winner.toUpperCase()
+            console.log(winner)
+            if (winner === "x") {
+                winnerSign.style.color = "#31C3BD"
+            }
+            else if (winner === "o") {
+    
+                winnerSign.style.color = "#F2B137"
+            }
+        }
 
         let getValuePositions = () => {
             let valuePositions = []
@@ -97,15 +117,27 @@ const gameBoard = (pos) => {
             return valuePositions
         }
 
-        let winCondition1 = getValuePositions()[0] + getValuePositions()[1] + getValuePositions()[2]
+        const winCondition1 = getValuePositions()[0] + getValuePositions()[1] + getValuePositions()[2]
+        const winCondition2 = getValuePositions()[3] + getValuePositions()[4] + getValuePositions()[5]
+        const winCondition3 = getValuePositions()[6] + getValuePositions()[7] + getValuePositions()[8]
+        const winCondition4 = getValuePositions()[0] + getValuePositions()[3] + getValuePositions()[6]
+        const winCondition5 = getValuePositions()[1] + getValuePositions()[4] + getValuePositions()[7]
+        const winCondition6 = getValuePositions()[2] + getValuePositions()[5] + getValuePositions()[8]
+        const winCondition7 = getValuePositions()[0] + getValuePositions()[4] + getValuePositions()[8]
+        const winCondition8 = getValuePositions()[2] + getValuePositions()[4] + getValuePositions()[6]
 
-        if (winCondition1 === 3) {
-            darkenScreen.style.display = "block"
-            endScreen.style.display = "block"
+        if (winCondition1 === 3 || winCondition2 === 3 || winCondition3 === 3 || winCondition4 === 3 || winCondition5 === 3 || winCondition6 === 3 || winCondition7 === 3 || winCondition8 === 3 ) {
+            winner = "x"
+            displayWinScreen()
+        }
+
+        else if (winCondition1 === -3 || winCondition2 === -3 || winCondition3 === -3 || winCondition4 === -3 || winCondition5 === -3 || winCondition6 === -3 || winCondition7 === -3 || winCondition8 === -3 ) {
+            winner = "o"
+            displayWinScreen()
         }
     }
 
-    return  {renderPositions, switchPlayer, checkForWin}
+    return  {renderPositions, switchPlayer, checkForRoundWin}
 }
 
 let game = gameBoard(positions)
