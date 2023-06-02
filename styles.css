@@ -72,11 +72,13 @@ body {
 .x-button {
     background-color: #A9BEC8;
     color:#1E3640;
+    transition: 0.3s ease-in-out;
 }
 
 .o-button {
     background-color: transparent;
     color: #A9BEC8;
+    transition: 0.3s ease-in-out;
 }
 
 .start-game-btn {
@@ -96,6 +98,12 @@ body {
     background-color: #ffbf48;
     transform:translateY(-5px);
     transition: 0.3s;
+}
+
+/* Game screen */
+
+.game-screen {
+    display: none;
 }
 
 /* Game screen header */
@@ -220,6 +228,7 @@ body {
 /* game end screen */ 
 
 .darken-screen {
+    display: none;
     top: 0;
     position: fixed;
     height: 100vh;
@@ -229,6 +238,7 @@ body {
 }
 
 .end-screen {
+    display: none;
     position: fixed;
     z-index: 2;
     background-color: #1E3640;

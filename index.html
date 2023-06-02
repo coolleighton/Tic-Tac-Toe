@@ -12,55 +12,59 @@
 </head>
 <body>
 
-    <header class="header-elements">
-        <h1><span class="blue">X</span> <span class="yellow">O</span></h1>
-        <h2><span>X</span> TURN</h2>
-        <button>
-            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z"></path></svg>
-        </button>
-    </header>
+    <div id="game-screen" class="game-screen">
 
-    <section class="game-grid">
-        <div class="box">x</div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </section>
+        <header class="header-elements">
+            <h1><span class="blue">X</span> <span class="yellow">O</span></h1>
+            <h2><span id="turn">X</span> TURN</h2>
+            <button>
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z"></path></svg>
+            </button>
+        </header>
 
-    <section class="player-scores">
-        <div class="player-x-score">
-            <p>PLAYER X</p>
-            <h3>3</h3>
-        </div>
-        <div class="ties-score">
-            <p>TIES</p>
-            <h3>0</h3>
-        </div>
-        <div class="player-o-score">
-            <p>PLAYER O</p>
-            <h3>1</h3>
-        </div>
-    </section>
+        <section class="game-grid">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </section>
 
-    <section class="player-selector-container">
+        <section class="player-scores">
+            <div class="player-x-score">
+                <p>PLAYER X</p>
+                <h3>3</h3>
+            </div>
+            <div class="ties-score">
+                <p>TIES</p>
+                <h3>0</h3>
+            </div>
+            <div class="player-o-score">
+                <p>PLAYER O</p>
+                <h3>1</h3>
+            </div>
+        </section>
+
+    </div>    
+        
+    <section id="player-selector-container" class="player-selector-container">
         <h1><span class="blue">X</span> <span class="yellow">O</span></h1>
         <div class="selection-div">
             <h1>PICK PLAYER 1'S SIGN</h1>
             <div class="selection-buttons">
-                <button class="x-button">X</button>
-                <button class="o-button">O</button>
+                <button id="x-button" class="x-button">X</button>
+                <button id="o-button" class="o-button">O</button>
             </div>
             <p>REMEMBER: X GOES FIRST</p>
         </div>
-        <button class="start-game-btn">START GAME</button>
+        <button id="start-game-btn" class="start-game-btn">START GAME</button>
     </section>
 
-    <section class="end-screen">
+    <section id="end-screen" class="end-screen">
         <div class="end-screen-container">
             <p>CONGRATULATIONS!</p>
             <div class="winner">
@@ -74,7 +78,7 @@
         </div>
     </section>
 
-    <div class="darken-screen"></div>
+    <div id="darken-screen" class="darken-screen"></div>
     
     <script src="app.js"></script>
 </body>
