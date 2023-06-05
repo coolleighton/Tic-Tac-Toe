@@ -1,18 +1,31 @@
 let positions = ["", "", "", "", "", "", "", "", ""]
-let player1 = ""
-let player2 = ""
+let sign = "x"
+let winner = ""
+let playerXScore = 0
+let playerOScore = 0
+let tieScore = 0
+let player1 = "x"
+let player2 = "o"
+
 // Selectors //
 
 const selectOBtn = document.querySelector("#o-button")
 const selectXBtn = document.querySelector("#x-button")
 const startGameBtn = document.querySelector("#start-game-btn")
+const nextRoundBtn = document.querySelector("#next-round-button")
+const restartBtn = document.querySelector("#restart-btn")
 
 const endScreen = document.querySelector("#end-screen")
 const darkenScreen = document.querySelector("#darken-screen")
 const selectionScreen = document.querySelector("#player-selector-container")
 const gameScreen = document.querySelector("#game-screen")
 const turnDisplay = document.querySelector("#turn")
+const playerXScoreDisplay = document.querySelector("#x-score")
+const playerOScoreDisplay = document.querySelector("#o-score")
+const playerTiesScore = document.querySelector("#ties-score")
+const congratsMessage = document.querySelector("#congrats-message")
 const winnerSign = document.querySelector("#winner-sign")
+const winnerStatement = document.querySelector("#winner-statement")
 const gameBoxes = document.querySelectorAll(".box")
 
 // Event listeners //
@@ -40,16 +53,19 @@ startGameBtn.addEventListener("click", () => {
     gameScreen.style.display = "block"
 })
 
+restartBtn.addEventListener("click", () => {
+    game.restartGame()
+})
+
+nextRoundBtn.addEventListener("click", () => {
+    game.startNextRound()
+})
+
 for (var i = 0; i < gameBoxes.length; i++) {
 
     gameBoxes[i].dataset.id = [i]
     gameBoxes[i].addEventListener("click", (e) => {
-
-        if (positions[e.target.dataset.id] === "") {
-            game.switchPlayer(e)
-            game.renderPositions()
-            game.checkForRoundWin()
-        }
+        game.addSign(e)
     })
 }
 
@@ -58,42 +74,71 @@ for (var i = 0; i < gameBoxes.length; i++) {
 const gameBoard = (pos) => {
 
     let gameBoardPositions = pos
-    let sign = "x"
-    let winner = ""
 
     const renderPositions = () => {
-
-        for (var i = 0; i < gameBoardPositions.length; i++) {
-            gameBoxes[i].innerHTML = gameBoardPositions[i]
+        for (var i = 0; i < positions.length; i++) {
+            gameBoxes[i].innerHTML = positions[i]
         }
     }
 
     const switchPlayer = (e) => {
-        
         positions[e.target.dataset.id] = sign
+
         if (sign === "x") {
             sign = "o"
             turnDisplay.textContent = "O"
+            e.target.style.color = "#31C3BD"
         }
         else {
             sign = "x"
             turnDisplay.textContent = "X"
+            e.target.style.color = "#F2B137"
         }
+    }
+
+    const restartGame = () => {
+        positions = ["", "", "", "", "", "", "", "", ""]
+        gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
+        sign = "x"
+        renderPositions()
+    }
+
+    const startNextRound = () => {
+        darkenScreen.style.display = "none"
+        endScreen.style.display = "none"
+        restartGame()
     }
 
     const checkForRoundWin = () => {
 
         const displayWinScreen = () => {
+
             darkenScreen.style.display = "block"
             endScreen.style.display = "block"
-            winnerSign.textContent = winner.toUpperCase()
-            console.log(winner)
+
             if (winner === "x") {
                 winnerSign.style.color = "#31C3BD"
+                playerXScore++
+                congratsMessage.textContent = "CONGRATULATIONS !"
+                winnerSign.textContent = winner.toUpperCase()
+                winnerStatement.textContent = "TAKES THE ROUND"
+                playerXScoreDisplay.textContent = playerXScore
             }
             else if (winner === "o") {
-    
                 winnerSign.style.color = "#F2B137"
+                playerOScore++
+                congratsMessage.textContent = "CONGRATULATIONS !"
+                winnerSign.textContent = winner.toUpperCase()
+                winnerStatement.textContent = "TAKES THE ROUND"
+                playerOScoreDisplay.textContent = playerOScore
+            }
+            else if (winner === "tie") {
+                winnerSign.style.color = "#A9BEC8"
+                tieScore++
+                congratsMessage.textContent = ""
+                winnerSign.textContent = "IT'S A TIE!"
+                winnerStatement.textContent = ""
+                playerTiesScore.textContent = tieScore
             }
         }
 
@@ -135,12 +180,25 @@ const gameBoard = (pos) => {
             winner = "o"
             displayWinScreen()
         }
+
+        else if (gameBoardPositions.every(element => element)) {
+            winner = "tie"
+            displayWinScreen()
+        }
     }
 
-    return  {renderPositions, switchPlayer, checkForRoundWin}
+    const addSign = (e) => {
+        if (gameBoardPositions[e.target.dataset.id] === "") {
+            gameBoardPositions[e.target.dataset.id] = sign
+            game.switchPlayer(e)
+            game.checkForRoundWin()
+            game.renderPositions()
+        }
+    }
+
+    return  {renderPositions, switchPlayer, checkForRoundWin, startNextRound, restartGame, addSign}
 }
 
 let game = gameBoard(positions)
 
-console.log(game)
 
