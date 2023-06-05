@@ -4,16 +4,15 @@ let winner = ""
 let playerXScore = 0
 let playerOScore = 0
 let tieScore = 0
-let player1 = "x"
-let player2 = "o"
 
 // Selectors //
 
 const selectOBtn = document.querySelector("#o-button")
 const selectXBtn = document.querySelector("#x-button")
-const startGameBtn = document.querySelector("#start-game-btn")
+const startGameBtn = document.querySelector("#start-game-button")
 const nextRoundBtn = document.querySelector("#next-round-button")
 const restartBtn = document.querySelector("#restart-btn")
+const quitBtn = document.querySelector("#quit-button")
 
 const endScreen = document.querySelector("#end-screen")
 const darkenScreen = document.querySelector("#darken-screen")
@@ -35,8 +34,6 @@ selectOBtn.addEventListener("click", () => {
     selectOBtn.style.backgroundColor = "#A9BEC8"
     selectXBtn.style.color = "#A9BEC8"
     selectXBtn.style.backgroundColor = "transparent"
-    player1 = "x"
-    player2 = "o"
 })
 
 selectXBtn.addEventListener("click", () => {
@@ -44,8 +41,6 @@ selectXBtn.addEventListener("click", () => {
     selectXBtn.style.backgroundColor = "#A9BEC8"
     selectOBtn.style.color = "#A9BEC8"
     selectOBtn.style.backgroundColor = "transparent"
-    player1 = "o"
-    player2 = "x"
 })
 
 startGameBtn.addEventListener("click", () => {
@@ -54,20 +49,24 @@ startGameBtn.addEventListener("click", () => {
 })
 
 restartBtn.addEventListener("click", () => {
-    game.restartGame()
+    game.restartRound()
 })
 
 nextRoundBtn.addEventListener("click", () => {
     game.startNextRound()
 })
 
-for (var i = 0; i < gameBoxes.length; i++) {
+quitBtn.addEventListener("click", () => {
+    game.restartGame()
+})
 
+for (var i = 0; i < gameBoxes.length; i++) {
     gameBoxes[i].dataset.id = [i]
     gameBoxes[i].addEventListener("click", (e) => {
         game.addSign(e)
     })
 }
+
 
 // Gameboard factory functions //
 
@@ -75,12 +74,24 @@ const gameBoard = (pos) => {
 
     let gameBoardPositions = pos
 
+    // function to add signs to the board //
+    const addSign = (e) => {
+        if (gameBoardPositions[e.target.dataset.id] === "") {
+            gameBoardPositions[e.target.dataset.id] = sign
+            game.switchPlayer(e)
+            game.checkForRoundWin()
+            game.renderPositions()
+        }
+    }
+
+    // function to render the positions array on the board //
     const renderPositions = () => {
         for (var i = 0; i < positions.length; i++) {
             gameBoxes[i].innerHTML = positions[i]
         }
     }
 
+    // function to switch player after every valid sign placement //
     const switchPlayer = (e) => {
         positions[e.target.dataset.id] = sign
 
@@ -96,19 +107,42 @@ const gameBoard = (pos) => {
         }
     }
 
-    const restartGame = () => {
+    // function to clear array and restart round //
+    const restartRound = () => {
         positions = ["", "", "", "", "", "", "", "", ""]
         gameBoardPositions = ["", "", "", "", "", "", "", "", ""]
         sign = "x"
+        turnDisplay.textContent = "X"
+        for (var i = 0; i < gameBoxes.length; i++) {
+            gameBoxes[i].style.color = "#223c47"
+        }
         renderPositions()
     }
 
+    // function to start next round //
     const startNextRound = () => {
         darkenScreen.style.display = "none"
         endScreen.style.display = "none"
-        restartGame()
+        restartRound()
     }
 
+    // function to completly restart game //
+    const restartGame = () => {
+        playerXScore = 0
+        playerOScore = 0
+        tieScore = 0
+        playerXScoreDisplay.textContent = playerXScore
+        playerOScoreDisplay.textContent = playerOScore
+        playerTiesScore.textContent = tieScore
+        restartRound()
+        darkenScreen.style.display = "none"
+        endScreen.style.display = "none"
+        selectionScreen.style.display = "block"
+        gameScreen.style.display = "none"
+        
+    }
+
+    // function to check for win conditions and display winner on screen if any //
     const checkForRoundWin = () => {
 
         const displayWinScreen = () => {
@@ -187,16 +221,7 @@ const gameBoard = (pos) => {
         }
     }
 
-    const addSign = (e) => {
-        if (gameBoardPositions[e.target.dataset.id] === "") {
-            gameBoardPositions[e.target.dataset.id] = sign
-            game.switchPlayer(e)
-            game.checkForRoundWin()
-            game.renderPositions()
-        }
-    }
-
-    return  {renderPositions, switchPlayer, checkForRoundWin, startNextRound, restartGame, addSign}
+    return  {renderPositions, switchPlayer, checkForRoundWin, startNextRound, restartRound, restartGame, addSign}
 }
 
 let game = gameBoard(positions)
